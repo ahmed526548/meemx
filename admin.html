@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم | MeeMX Admin</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+  <style>
+    .admin-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .admin-header h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.3rem;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .stat-card .label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .admin-grid { grid-template-columns: 1fr; }
+    }
+    .admin-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .admin-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .products-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .products-table th,
+    .products-table td {
+      padding: 0.8rem 0.6rem;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .products-table th {
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    .products-table tr:hover td {
+      background: rgba(59, 130, 246, 0.05);
+    }
+    .product-emoji {
+      font-size: 1.5rem;
+    }
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+      padding: 0.35rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+    .btn-sm {
+      padding: 0.4rem 1rem;
+      font-size: 0.9rem;
+    }
+    .login-box {
+      max-width: 400px;
+      margin: 4rem auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      text-align: center;
+    }
+    .login-box h1 {
+      margin-bottom: 0.5rem;
+    }
+    .login-box p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .login-box input {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      color: var(--text-primary);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+    .login-box input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .hidden { display: none !important; }
+    .empty-table {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" class="login-box">
+    <div class="logo" style="justify-content:center;margin-bottom:1.5rem">
+      <div class="logo-icon">M</div>
+      <span>MeeMX</span>
+    </div>
+    <h1>لوحة التحكم</h1>
+    <p>أدخل كلمة المرور للدخول</p>
+    <input type="password" id="admin-password" placeholder="كلمة المرور" autocomplete="off">
+    <button class="btn btn-primary" style="width:100%" onclick="tryLogin()">دخول</button>
+    <p style="margin-top:1.2rem;font-size:0.85rem;color:var(--text-muted)">
+      كلمة المرور الافتراضية: <b style="color:var(--cta)">meemx2026</b>
+    </p>
+    <a href="index.html" style="display:inline-block;margin-top:1rem;color:var(--accent);font-size:0.9rem">← العودة للمتجر</a>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div id="admin-panel" class="hidden">
+    <header class="header">
+      <div class="header-inner">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">M</div>
+          <span>MeeMX</span>
+        </a>
+        <nav class="nav">
+          <a href="index.html">المتجر</a>
+          <a href="shop.html">المنتجات</a>
+          <a href="admin.html" class="active">لوحة التحكم</a>
+        </nav>
+        <div class="header-actions">
+          <button class="btn btn-secondary btn-sm" onclick="logout()">تسجيل خروج</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-container">
+      <div class="admin-header">
+        <h1>⚙️ إدارة المنتجات</h1>
+        <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
+          <button class="btn btn-secondary btn-sm" onclick="resetProducts()">إعادة تعيين المنتجات</button>
+          <a href="index.html" class="btn btn-primary btn-sm">عرض المتجر ←</a>
+        </div>
+      </div>
+
+      <div class="admin-stats">
+        <div class="stat-card">
+          <div class="num" id="stat-total">0</div>
+          <div class="label">إجمالي المنتجات</div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="stat-chargers">0</div>
+          <div class="label">شواحن</div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="stat-headphones">0</div>
+          <div class="label">سماعات</div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="stat-others">0</div>
+          <div class="label">باقي الفئات</div>
+        </div>
+      </div>
+
+      <div class="admin-grid">
+        <!-- Products List -->
+        <div class="admin-card">
+          <h2>قائمة المنتجات</h2>
+          <div style="overflow-x:auto">
+            <table class="products-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>المنتج</th>
+                  <th>الفئة</th>
+                  <th>السعر</th>
+                  <th>إجراء</th>
+                </tr>
+              </thead>
+              <tbody id="products-tbody">
+                <!-- JS -->
+              </tbody>
+            </table>
+          </div>
+          <div id="empty-msg" class="empty-table hidden">لا توجد منتجات حالياً</div>
+        </div>
+
+        <!-- Add Product Form -->
+        <div class="admin-card">
+          <h2>إضافة منتج جديد</h2>
+          <form id="add-product-form">
+            <div class="form-group">
+              <label>اسم المنتج *</label>
+              <input type="text" id="p-name" required placeholder="مثال: شاحن سريع 30 واط">
+            </div>
+            <div class="form-group">
+              <label>الفئة *</label>
+              <select id="p-category" required>
+                <option value="chargers">شواحن</option>
+                <option value="headphones">سماعات</option>
+                <option value="cables">كابلات</option>
+                <option value="cases">حافظات</option>
+                <option value="accessories">إكسسوارات</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>السعر (ج.م) *</label>
+                <input type="number" id="p-price" required min="1" placeholder="199">
+              </div>
+              <div class="form-group">
+                <label>السعر القديم</label>
+                <input type="number" id="p-oldprice" min="0" placeholder="اختياري">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>الإيموجي</label>
+                <input type="text" id="p-emoji" placeholder="⚡" maxlength="4" style="font-size:1.3rem;text-align:center">
+              </div>
+              <div class="form-group">
+                <label>الشارة (Badge)</label>
+                <input type="text" id="p-badge" placeholder="جديد / عرض / خصم">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>الوصف</label>
+              <textarea id="p-desc" rows="2" placeholder="وصف مختصر للمنتج..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-cta" style="width:100%;margin-top:0.5rem">
+              + إضافة المنتج
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast"></div>
+
+  <script src="js/app.js"></script>
+  <script>
+    const ADMIN_PASS = 'meemx2026';
+
+    function tryLogin() {
+      const pass = document.getElementById('admin-password').value;
+      if (pass === ADMIN_PASS) {
+        sessionStorage.setItem('meemx_admin', '1');
+        showAdmin();
+      } else {
+        showToast('كلمة المرور غير صحيحة');
+        document.getElementById('admin-password').value = '';
+      }
+    }
+
+    document.getElementById('admin-password')?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') tryLogin();
+    });
+
+    function logout() {
+      sessionStorage.removeItem('meemx_admin');
+      document.getElementById('admin-panel').classList.add('hidden');
+      document.getElementById('login-screen').classList.remove('hidden');
+    }
+
+    function showAdmin() {
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('admin-panel').classList.remove('hidden');
+      renderAdminTable();
+      updateStats();
+    }
+
+    function renderAdminTable() {
+      refreshProducts();
+      const tbody = document.getElementById('products-tbody');
+      const emptyMsg = document.getElementById('empty-msg');
+
+      if (products.length === 0) {
+        tbody.innerHTML = '';
+        emptyMsg.classList.remove('hidden');
+        return;
+      }
+      emptyMsg.classList.add('hidden');
+
+      tbody.innerHTML = products.map(p => `
+        <tr>
+          <td class="product-emoji">${p.emoji || '📦'}</td>
+          <td>
+            <strong>${p.name}</strong>
+            ${p.badge ? `<br><small style="color:var(--cta)">${p.badge}</small>` : ''}
+          </td>
+          <td>${p.categoryAr || p.category}</td>
+          <td>
+            <strong style="color:var(--cta)">${p.price} ج.م</strong>
+            ${p.oldPrice ? `<br><small style="text-decoration:line-through;color:var(--text-muted)">${p.oldPrice}</small>` : ''}
+          </td>
+          <td>
+            <button class="btn-danger" onclick="deleteProduct(${p.id})">حذف</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function updateStats() {
+      refreshProducts();
+      document.getElementById('stat-total').textContent = products.length;
+      document.getElementById('stat-chargers').textContent = products.filter(p => p.category === 'chargers').length;
+      document.getElementById('stat-headphones').textContent = products.filter(p => p.category === 'headphones').length;
+      document.getElementById('stat-others').textContent = products.filter(p => !['chargers','headphones'].includes(p.category)).length;
+    }
+
+    function deleteProduct(id) {
+      if (!confirm('هل أنت متأكد من حذف هذا المنتج؟')) return;
+      adminDeleteProduct(id);
+      renderAdminTable();
+      updateStats();
+      showToast('تم حذف المنتج');
+    }
+
+    function resetProducts() {
+      if (!confirm('هل تريد إعادة جميع المنتجات إلى الحالة الافتراضية؟\nسيتم حذف أي منتجات أضفتها.')) return;
+      adminResetProducts();
+      renderAdminTable();
+      updateStats();
+      showToast('تم إعادة تعيين المنتجات');
+    }
+
+    // Add product form
+    document.getElementById('add-product-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = {
+        name: document.getElementById('p-name').value.trim(),
+        category: document.getElementById('p-category').value,
+        price: document.getElementById('p-price').value,
+        oldPrice: document.getElementById('p-oldprice').value || null,
+        emoji: document.getElementById('p-emoji').value.trim() || '📦',
+        badge: document.getElementById('p-badge').value.trim() || null,
+        desc: document.getElementById('p-desc').value.trim()
+      };
+
+      if (!data.name || !data.price) {
+        showToast('املأ الحقول المطلوبة');
+        return;
+      }
+
+      adminAddProduct(data);
+      renderAdminTable();
+      updateStats();
+      e.target.reset();
+      showToast('تم إضافة المنتج بنجاح ✓');
+    });
+
+    // Auto login if session exists
+    if (sessionStorage.getItem('meemx_admin') === '1') {
+      showAdmin();
+    }
+  </script>
+</body>
+</html>

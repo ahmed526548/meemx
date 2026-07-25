@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إتمام الشراء | MeeMX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">M</div>
+        <span>MeeMX</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">الرئيسية</a>
+        <a href="shop.html">المتجر</a>
+      </nav>
+      <div class="header-actions">
+        <button class="cart-btn" onclick="openCart()">
+          🛒
+          <span class="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <h1>إتمام الشراء</h1>
+    <p>أدخل بياناتك لإكمال الطلب بأمان</p>
+  </div>
+
+  <div class="checkout-container">
+    <form class="checkout-form">
+      <h2>بيانات الشحن</h2>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label>الاسم الأول *</label>
+          <input type="text" required placeholder="أحمد">
+        </div>
+        <div class="form-group">
+          <label>الاسم الأخير *</label>
+          <input type="text" required placeholder="محمد">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>رقم الهاتف *</label>
+        <input type="tel" required placeholder="01xxxxxxxxx">
+      </div>
+
+      <div class="form-group">
+        <label>البريد الإلكتروني</label>
+        <input type="email" placeholder="example@email.com">
+      </div>
+
+      <div class="form-group">
+        <label>المحافظة *</label>
+        <select required>
+          <option value="">اختر المحافظة</option>
+          <option>القاهرة</option>
+          <option>الجيزة</option>
+          <option>الإسكندرية</option>
+          <option>الشرقية</option>
+          <option>الدقهلية</option>
+          <option>القليوبية</option>
+          <option>أخرى</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>العنوان التفصيلي *</label>
+        <textarea rows="3" required placeholder="الشارع، المبنى، الدور، الشقة..."></textarea>
+      </div>
+
+      <h2 style="margin-top:2rem">طريقة الدفع</h2>
+      
+      <div class="payment-options">
+        <label class="payment-option">
+          <input type="radio" name="payment" value="cod" checked>
+          <div class="payment-card">
+            <span class="payment-icon">💵</span>
+            <div>
+              <strong>الدفع عند الاستلام</strong>
+              <small>ادفع كاش لما يوصلك الطلب</small>
+            </div>
+          </div>
+        </label>
+
+        <label class="payment-option">
+          <input type="radio" name="payment" value="wallet">
+          <div class="payment-card">
+            <span class="payment-icon">📱</span>
+            <div>
+              <strong>محفظة إلكترونية</strong>
+              <small>فودافون كاش / انستا باي</small>
+              <div class="wallet-number">الرقم: <b>01119136553</b></div>
+            </div>
+          </div>
+        </label>
+
+        <label class="payment-option">
+          <input type="radio" name="payment" value="card">
+          <div class="payment-card">
+            <span class="payment-icon">💳</span>
+            <div>
+              <strong>بطاقة ائتمان / فيزا</strong>
+              <small>دفع آمن عبر البوابة الإلكترونية</small>
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-cta" style="width:100%;margin-top:1.5rem;padding:1rem;font-size:1.1rem">
+        تأكيد الطلب الآن
+      </button>
+    </form>
+
+    <div class="order-summary">
+      <h2>ملخص الطلب</h2>
+      <div class="summary-items">
+        <!-- JS -->
+      </div>
+      <div class="summary-item">
+        <span>المجموع الفرعي</span>
+        <span class="summary-subtotal">0 ج.م</span>
+      </div>
+      <div class="summary-item">
+        <span>الشحن</span>
+        <span class="summary-shipping">0 ج.م</span>
+      </div>
+      <div class="summary-item total">
+        <span>الإجمالي</span>
+        <span class="summary-total">0 ج.م</span>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-top:1rem;text-align:center">
+        🚚 شحن مجاني للطلبات فوق 500 ج.م
+      </p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom" style="border:none;margin:0;padding:1.5rem">
+      © 2026 MeeMX. جميع الحقوق محفوظة. | دفع آمن 100%
+    </div>
+  </footer>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay"></div>
+  <aside class="cart-sidebar">
+    <div class="cart-header">
+      <h2>سلة التسوق</h2>
+      <button class="close-cart" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>الإجمالي</span>
+        <span class="cart-total-value">0 ج.م</span>
+      </div>
+      <a href="checkout.html" class="btn btn-cta" style="width:100%;margin-bottom:0.8rem">إتمام الشراء</a>
+      <button class="btn btn-secondary" style="width:100%" onclick="closeCart()">متابعة التسوق</button>
+    </div>
+  </aside>
+
+  <div class="toast"></div>
+  <script src="js/app.js"></script>
+</body>
+</html>

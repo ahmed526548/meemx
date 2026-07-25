@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeeMX | إكسسوارات هواتف احترافية</title>
+  <meta name="description" content="متجر MeeMX - أفضل إكسسوارات الهواتف والشواحن والسماعات بأسعار منافسة وجودة عالية">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">M</div>
+        <span>MeeMX</span>
+      </a>
+
+      <nav class="nav">
+        <a href="index.html" class="active">الرئيسية</a>
+        <a href="shop.html">المتجر</a>
+        <a href="shop.html?cat=chargers">الشواحن</a>
+        <a href="shop.html?cat=headphones">السماعات</a>
+        <a href="#features">مميزاتنا</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="search-box">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="text" placeholder="ابحث عن منتج...">
+        </div>
+        <button class="cart-btn" onclick="openCart()" aria-label="السلة">
+          🛒
+          <span class="cart-count">0</span>
+        </button>
+        <button class="menu-toggle" onclick="openMobileNav()">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-overlay"></div>
+  <div class="mobile-nav">
+    <a href="index.html">الرئيسية</a>
+    <a href="shop.html">المتجر</a>
+    <a href="shop.html?cat=chargers">الشواحن</a>
+    <a href="shop.html?cat=headphones">السماعات</a>
+    <a href="shop.html?cat=cases">الحافظات</a>
+    <a href="#features">مميزاتنا</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <h1>إكسسوارات هاتفك <span>بجودة استثنائية</span></h1>
+        <p>اكتشف مجموعة مميزة من الشواحن والسماعات والحافظات والكابلات. توصيل سريع، ضمان أصلي، وأسعار تنافسية.</p>
+        <div class="hero-btns">
+          <a href="shop.html" class="btn btn-primary">تسوق الآن ←</a>
+          <a href="#featured" class="btn btn-secondary">المنتجات المميزة</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-product-img">🎧</div>
+          <h3>سماعات Pro Max اللاسلكية</h3>
+          <div class="price">599 ج.م</div>
+          <button class="btn btn-cta" style="width:100%" onclick="addToCart(2)">أضف إلى السلة</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section">
+    <div class="section-header">
+      <h2>تصفح حسب الفئة</h2>
+    </div>
+    <div class="categories-grid">
+      <a href="shop.html?cat=chargers" class="category-card">
+        <div class="category-icon">⚡</div>
+        <h3>الشواحن</h3>
+        <p>سريع ولاسلكي</p>
+      </a>
+      <a href="shop.html?cat=headphones" class="category-card">
+        <div class="category-icon">🎧</div>
+        <h3>السماعات</h3>
+        <p>لاسلكي وسلكي</p>
+      </a>
+      <a href="shop.html?cat=cables" class="category-card">
+        <div class="category-icon">🔌</div>
+        <h3>الكابلات</h3>
+        <p>USB-C ولايتنينج</p>
+      </a>
+      <a href="shop.html?cat=cases" class="category-card">
+        <div class="category-icon">📱</div>
+        <h3>الحافظات</h3>
+        <p>حماية فاخرة</p>
+      </a>
+      <a href="shop.html?cat=accessories" class="category-card">
+        <div class="category-icon">✨</div>
+        <h3>إكسسوارات</h3>
+        <p>حوامل وأكثر</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="section" id="featured">
+    <div class="section-header">
+      <h2>المنتجات المميزة</h2>
+      <a href="shop.html">عرض الكل ←</a>
+    </div>
+    <div class="products-grid" id="featured-products">
+      <!-- Rendered by JS -->
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section features" id="features">
+    <div class="section-header">
+      <h2>لماذا MeeMX؟</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🚚</div>
+        <div>
+          <h3>توصيل سريع</h3>
+          <p>شحن مجاني للطلبات فوق 500 ج.م داخل القاهرة والجيزة</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <div>
+          <h3>ضمان أصلي</h3>
+          <p>جميع المنتجات أصلية 100% مع ضمان لمدة سنة</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💳</div>
+        <div>
+          <h3>دفع آمن</h3>
+          <p>الدفع عند الاستلام أو بطاقات ائتمان وفيزا</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">↩️</div>
+        <div>
+          <h3>إرجاع سهل</h3>
+          <p>استرجاع خلال 14 يوم بدون أي تعقيدات</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">M</div>
+          <span>MeeMX</span>
+        </a>
+        <p>متجرك الموثوق لإكسسوارات الهواتف الذكية. جودة عالية، أسعار منافسة، وخدمة عملاء ممتازة.</p>
+        <div class="socials">
+          <a href="#" title="فيسبوك">📘</a>
+          <a href="#" title="إنستغرام">📷</a>
+          <a href="#" title="تويتر">🐦</a>
+          <a href="#" title="واتساب">💬</a>
+        </div>
+      </div>
+      <div>
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="shop.html">المتجر</a></li>
+          <li><a href="shop.html?cat=chargers">الشواحن</a></li>
+          <li><a href="shop.html?cat=headphones">السماعات</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>خدمة العملاء</h4>
+        <ul>
+          <li><a href="#">تتبع الطلب</a></li>
+          <li><a href="#">سياسة الإرجاع</a></li>
+          <li><a href="#">الشحن والتوصيل</a></li>
+          <li><a href="#">الأسئلة الشائعة</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li><a href="tel:+201234567890">📞 0123 456 7890</a></li>
+          <li><a href="mailto:info@meemx.com">✉️ info@meemx.com</a></li>
+          <li><a href="#">📍 القاهرة، مصر</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 MeeMX. جميع الحقوق محفوظة.
+    </div>
+  </footer>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay"></div>
+  <aside class="cart-sidebar">
+    <div class="cart-header">
+      <h2>سلة التسوق</h2>
+      <button class="close-cart" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>الإجمالي</span>
+        <span class="cart-total-value">0 ج.م</span>
+      </div>
+      <a href="checkout.html" class="btn btn-cta" style="width:100%;margin-bottom:0.8rem">إتمام الشراء</a>
+      <button class="btn btn-secondary" style="width:100%" onclick="closeCart()">متابعة التسوق</button>
+    </div>
+  </aside>
+
+  <div class="toast"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
