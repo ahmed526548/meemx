@@ -12,6 +12,7 @@ const defaultProducts = [
     rating: 4.8,
     reviews: 312,
     emoji: "⚡",
+    image: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400&h=400&fit=crop",
     badge: "الأكثر مبيعاً",
     desc: "شاحن فائق السرعة بتقنية GaN يدعم الشحن المتعدد لأجهزة متعددة في نفس الوقت."
   },
@@ -25,6 +26,7 @@ const defaultProducts = [
     rating: 4.9,
     reviews: 521,
     emoji: "🎧",
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop",
     badge: "جديد",
     desc: "إلغاء ضوضاء نشط، بطارية 40 ساعة، صوت استريو عالي الجودة."
   },
@@ -38,6 +40,7 @@ const defaultProducts = [
     rating: 4.7,
     reviews: 890,
     emoji: "🔌",
+    image: "https://images.unsplash.com/photo-1624880350315-6f880d06387d?w=400&h=400&fit=crop",
     badge: null,
     desc: "كابل مضفر عالي الجودة يدعم 100 واط وشحن سريع ونقل بيانات 10 جيجا."
   },
@@ -51,6 +54,7 @@ const defaultProducts = [
     rating: 4.6,
     reviews: 445,
     emoji: "📱",
+    image: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&h=400&fit=crop",
     badge: "خصم 30%",
     desc: "حافظة ناعمة مضادة للصدمات مع حماية كاملة للكاميرا والحواف."
   },
@@ -64,6 +68,7 @@ const defaultProducts = [
     rating: 4.8,
     reviews: 678,
     emoji: "🔋",
+    image: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400&h=400&fit=crop",
     badge: "عرض",
     desc: "بطارية خارجية سريعة مع شاشة رقمية ومنفذين USB-C و USB-A."
   },
@@ -77,6 +82,7 @@ const defaultProducts = [
     rating: 4.5,
     reviews: 234,
     emoji: "🎵",
+    image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=400&fit=crop",
     badge: null,
     desc: "مقاومة للعرق والماء IPX7، تثبيت مثالي أثناء الرياضة."
   },
@@ -90,6 +96,7 @@ const defaultProducts = [
     rating: 4.7,
     reviews: 356,
     emoji: "🚗",
+    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=400&fit=crop",
     badge: null,
     desc: "حامل مغناطيسي قوي للتثبيت على التهوية أو اللوحة."
   },
@@ -103,6 +110,7 @@ const defaultProducts = [
     rating: 4.4,
     reviews: 1203,
     emoji: "🛡️",
+    image: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&h=400&fit=crop",
     badge: "خصم",
     desc: "زجاج مقوى صلابة 9H مع طبقة مضادة للبصمات وسهولة التركيب."
   },
@@ -116,6 +124,7 @@ const defaultProducts = [
     rating: 4.6,
     reviews: 289,
     emoji: "📡",
+    image: "https://images.unsplash.com/photo-1592890288564-76628a0b4106?w=400&h=400&fit=crop",
     badge: null,
     desc: "شحن لاسلكي سريع متوافق مع جميع الأجهزة الداعمة لـ MagSafe و Qi."
   },
@@ -129,6 +138,7 @@ const defaultProducts = [
     rating: 4.7,
     reviews: 167,
     emoji: "🎮",
+    image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400&h=400&fit=crop",
     badge: "رائج",
     desc: "ميكروفون عازل للضوضاء، إضاءة RGB قابلة للتخصيص، صوت محيطي."
   },
@@ -142,6 +152,7 @@ const defaultProducts = [
     rating: 4.8,
     reviews: 712,
     emoji: "⚡",
+    image: "https://images.unsplash.com/photo-1624880350315-6f880d06387d?w=400&h=400&fit=crop",
     badge: null,
     desc: "كابل MFi معتمد من أبل، شحن سريع ونقل بيانات موثوق."
   },
@@ -155,6 +166,7 @@ const defaultProducts = [
     rating: 4.5,
     reviews: 198,
     emoji: "💍",
+    image: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&h=400&fit=crop",
     badge: "جديد",
     desc: "حلقة مغناطيسية قابلة للطي تستخدم كحامل وحلقة إصبع."
   }
@@ -336,8 +348,10 @@ function renderProducts(containerSelector, filterCat = 'all', limit = null, sear
 
   container.innerHTML = filtered.map(p => `
     <div class="product-card" data-id="${p.id}">
-      <div class="product-img" style="background: linear-gradient(145deg, #1e293b 0%, #0f172a 50%, #1a2234 100%);">
-        <span style="font-size:4.5rem;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.4))">${p.emoji || '📦'}</span>
+      <div class="product-img">
+        ${p.image 
+          ? `<img src="${p.image}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">` 
+          : `<span style="font-size:4.5rem;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.4))">${p.emoji || '📦'}</span>`}
         ${p.badge ? `<span class="product-badge ${p.badge.includes('خصم') || p.badge.includes('عرض') ? 'sale' : ''}">${p.badge}</span>` : ''}
       </div>
       <div class="product-info">
