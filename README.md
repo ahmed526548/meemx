@@ -1,63 +1,48 @@
-# MeeMX - متجر إكسسوارات الهواتف
+# MeeMX — Arabic Tech Accessories Store
 
-موقع تجارة إلكترونية كامل ومتكامل لبيع إكسسوارات الهواتف (شواحن، سماعات، كابلات، حافظات، وإكسسوارات أخرى).
+A responsive Arabic-first e-commerce storefront concept for discovering and shopping for mobile accessories. Built with HTML, CSS, and vanilla JavaScript, with a right-to-left interface and Egyptian Pound pricing.
 
-## المميزات
+## Project highlights
 
-- تصميم عصري داكن احترافي جذاب
-- دعم كامل للغة العربية واتجاه RTL
-- سلة تسوق تفاعلية مع حفظ في LocalStorage
-- صفحة متجر مع فلاتر حسب الفئة
-- صفحة إتمام شراء كاملة مع نموذج بيانات
-- صفحة تأكيد الطلب
-- متجاوب بالكامل (موبايل + تابلت + ديسكتوب)
-- ألوان متناسقة: أزرق تقني + برتقالي للـ CTA
-- خط Tajawal العربي الحديث
+- Modern dark storefront with responsive layouts for desktop, tablet, and mobile.
+- Product catalog with category filters and live search.
+- Sorting by featured products, lowest/highest price, rating, and discount.
+- Product quick-view modal with descriptions, ratings, and add-to-cart action.
+- Persistent wishlist saved in the browser.
+- Interactive shopping cart with quantity controls and LocalStorage persistence.
+- Checkout form with order summary and shipping calculation.
+- Demo order confirmation with a generated reference and saved order summary.
+- Product data stored locally, with basic demo admin helper functions in the JavaScript.
+- Arabic RTL layout and Tajawal typography.
 
-## كيفية التشغيل
+## Tech stack
 
-1. افتح مجلد `meemx`
-2. افتح ملف `index.html` في المتصفح مباشرة
-   أو استخدم أي سيرفر محلي مثل:
-   ```bash
-   npx serve .
-   # أو
-   python -m http.server 8000
-   ```
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- LocalStorage and SessionStorage
+- Lucide-free inline SVG icons and CSS UI elements
 
-## هيكل الملفات
+## Run locally
 
-```
-meemx/
-├── index.html      # الصفحة الرئيسية
-├── shop.html       # صفحة المتجر + الفلاتر
-├── checkout.html   # إتمام الشراء
-├── success.html    # تأكيد الطلب
-├── css/
-│   └── style.css   # التنسيقات الكاملة
-├── js/
-│   └── app.js      # منطق السلة والمنتجات
-└── README.md
+No build step is required.
+
+1. Download or clone this repository.
+2. Open `index.html` in a browser, or run a local static server:
+
+```bash
+python -m http.server 8000
 ```
 
-## المنتجات
+3. Visit `http://localhost:8000`.
 
-يحتوي على 12 منتج تجريبي في فئات:
-- الشواحن
-- السماعات
-- الكابلات
-- الحافظات
-- إكسسوارات أخرى
+## Demo limitations
 
-الأسعار بالجنيه المصري (ج.م).
+This is a front-end portfolio project. Cart, wishlist, and demo order information are stored in the browser. There is no production backend, inventory synchronization, account system, or real payment gateway. The checkout flow is a demonstration only and does not send real orders or process payments.
 
-## ملاحظات للتطوير المستقبلي
+## Repository
 
-- ربط بـ Backend حقيقي (Node.js / PHP / Firebase)
-- بوابة دفع إلكترونية (Paymob / Fawry)
-- لوحة تحكم للمنتجات
-- صور حقيقية للمنتجات
-- نظام مستخدمين وتسجيل دخول
+[GitHub — ahmed526548/meemx](https://github.com/ahmed526548/meemx)
 
 ---
-صُمم بواسطة Grok لـ MeeMX © 2026
+Built as a front-end portfolio project.
