@@ -527,3 +527,153 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.cart-overlay')?.addEventListener('click', closeCart);
   document.querySelector('.mobile-overlay')?.addEventListener('click', closeMobileNav);
 });
+
+
+/* ========== PORTFOLIO UPGRADE: WISHLIST, QUICK VIEW & SORTING ========== */
+const MEEMX_WISHLIST_KEY = 'meemx_wishlist';
+let meemxSortMode = 'featured';
+
+function getWishlist() {
+  try { return JSON.parse(localStorage.getItem(MEEMX_WISHLIST_KEY) || '[]'); }
+  catch (_) { return []; }
+}
+function saveWishlist(items) {
+  localStorage.setItem(MEEMX_WISHLIST_KEY, JSON.stringify(items));
+}
+function toggleWishlist(id) {
+  const list = getWishlist();
+  const exists = list.includes(id);
+  saveWishlist(exists ? list.filter(item => item !== id) : [...list, id]);
+  renderProducts('#shop-products', document.querySelector('.filter-btn.active')?.dataset.cat || 'all', null, document.querySelector('.search-box input')?.value || '');
+  renderProducts('#featured-products', 'all', 8);
+  showToast(exists ? 'تمت الإزالة من المفضلة' : 'تمت الإضافة إلى المفضلة');
+}
+function escapeMeemx(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+}
+function openQuickView(id) {
+  refreshProducts();
+  const p = products.find(item => item.id === id);
+  if (!p) return;
+  sessionStorage.setItem('meemx_last_viewed', String(id));
+  const modal = document.querySelector('#meemx-quick-view');
+  if (!modal) return;
+  modal.innerHTML = `
+    <div class="meemx-modal-backdrop" onclick="closeQuickView()"></div>
+    <section class="meemx-modal-card" role="dialog" aria-modal="true" aria-label="تفاصيل المنتج">
+      <button class="meemx-modal-close" onclick="closeQuickView()" aria-label="إغلاق">×</button>
+      <div class="meemx-modal-image">${p.image ? `<img src="${escapeMeemx(p.image)}" alt="${escapeMeemx(p.name)}">` : `<span>${p.emoji || '📦'}</span>`}</div>
+      <div class="meemx-modal-content">
+        <span class="product-cat">${escapeMeemx(p.categoryAr || categoryMap[p.category] || 'منتج')}</span>
+        <h2>${escapeMeemx(p.name)}</h2>
+        <div class="product-rating">★★★★★ <span>${Number(p.rating || 4.5).toFixed(1)} · ${Number(p.reviews || 0)} تقييم</span></div>
+        <p>${escapeMeemx(p.desc || 'اكتشف تفاصيل المنتج ومميزاته.')}</p>
+        <strong class="meemx-modal-price">${formatPrice(p.price)}</strong>
+        <button class="btn btn-cta" onclick="addToCart(${p.id});closeQuickView()">أضف إلى السلة</button>
+      </div>
+    </section>`;
+  modal.classList.add('open');
+  document.body.classList.add('meemx-modal-open');
+}
+function closeQuickView() {
+  document.querySelector('#meemx-quick-view')?.classList.remove('open');
+  document.body.classList.remove('meemx-modal-open');
+}
+function renderProducts(containerSelector, filterCat = 'all', limit = null, searchTerm = '') {
+  refreshProducts();
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+  let filtered = filterCat === 'all' ? [...products] : products.filter(p => p.category === filterCat);
+  if (searchTerm) {
+    const term = searchTerm.trim().toLowerCase();
+    filtered = filtered.filter(p => p.name.toLowerCase().includes(term) ||
+      (p.categoryAr && p.categoryAr.includes(term)) || (p.desc && p.desc.toLowerCase().includes(term)));
+  }
+  if (meemxSortMode === 'price-low') filtered.sort((a,b) => a.price-b.price);
+  if (meemxSortMode === 'price-high') filtered.sort((a,b) => b.price-a.price);
+  if (meemxSortMode === 'rating') filtered.sort((a,b) => (b.rating||0)-(a.rating||0));
+  if (meemxSortMode === 'discount') filtered.sort((a,b) => ((b.oldPrice||b.price)-b.price) - ((a.oldPrice||a.price)-a.price));
+  if (limit) filtered = filtered.slice(0, limit);
+  if (!filtered.length) {
+    container.innerHTML = '<div class="meemx-empty-state"><span>⌕</span><p>مفيش منتجات مطابقة لبحثك</p><small>جرّب كلمة تانية أو غيّر التصنيف</small></div>';
+    return;
+  }
+  const favorites = getWishlist();
+  container.innerHTML = filtered.map(p => `
+    <article class="product-card" data-id="${p.id}">
+      <div class="product-img">
+        ${p.image ? `<img src="${escapeMeemx(p.image)}" alt="${escapeMeemx(p.name)}" loading="lazy">` : `<span>${p.emoji || '📦'}</span>`}
+        ${p.badge ? `<span class="product-badge ${String(p.badge).includes('خصم') || String(p.badge).includes('عرض') ? 'sale' : ''}">${escapeMeemx(p.badge)}</span>` : ''}
+        <button class="meemx-favorite ${favorites.includes(p.id) ? 'is-favorite' : ''}" onclick="toggleWishlist(${p.id})" aria-label="إضافة للمفضلة" title="المفضلة">${favorites.includes(p.id) ? '♥' : '♡'}</button>
+        <button class="meemx-quick-btn" onclick="openQuickView(${p.id})">عرض سريع</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">${escapeMeemx(p.categoryAr || categoryMap[p.category] || p.category)}</div>
+        <h3>${escapeMeemx(p.name)}</h3>
+        <div class="product-rating">★★★★★ <span>${Number(p.rating || 4.5).toFixed(1)} (${Number(p.reviews || 0)})</span></div>
+        <div class="product-bottom">
+          <div class="product-price">${p.oldPrice ? `<span class="old">${formatPrice(p.oldPrice)}</span>` : ''}${formatPrice(p.price)}</div>
+          <button class="add-to-cart" onclick="addToCart(${p.id})" title="أضف للسلة" aria-label="أضف للسلة">+</button>
+        </div>
+      </div>
+    </article>`).join('');
+}
+
+/* Demo checkout: save a local order summary; no real payment is processed. */
+function handleCheckout(e) {
+  e.preventDefault();
+  if (!cart.length) { showToast('السلة فارغة!'); return; }
+  const form = e.currentTarget;
+  if (!form.reportValidity()) return;
+  const order = {
+    id: 'MX-' + Date.now().toString().slice(-7),
+    items: cart.map(item => ({id:item.id,name:item.name,price:item.price,qty:item.qty})),
+    subtotal: getCartTotal(),
+    shipping: getCartTotal() > 500 ? 0 : 40,
+    createdAt: new Date().toISOString()
+  };
+  order.total = order.subtotal + order.shipping;
+  sessionStorage.setItem('meemx_last_order', JSON.stringify(order));
+  cart = [];
+  saveCart();
+  window.location.href = 'success.html';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const shopGrid = document.querySelector('#shop-products');
+  if (shopGrid && !document.querySelector('.meemx-shop-toolbar')) {
+    const toolbar = document.createElement('div');
+    toolbar.className = 'meemx-shop-toolbar';
+    toolbar.innerHTML = '<div><strong>اكتشف منتجاتنا</strong><small>اختار اللي يناسبك بسهولة</small></div><label>ترتيب حسب <select id="meemx-sort"><option value="featured">المميزة</option><option value="price-low">السعر: الأقل أولاً</option><option value="price-high">السعر: الأعلى أولاً</option><option value="rating">الأعلى تقييماً</option><option value="discount">أكبر خصم</option></select></label>';
+    shopGrid.parentElement.insertBefore(toolbar, shopGrid);
+    toolbar.querySelector('select').addEventListener('change', event => {
+      meemxSortMode = event.target.value;
+      renderProducts('#shop-products', document.querySelector('.filter-btn.active')?.dataset.cat || 'all', null, document.querySelector('.search-box input')?.value || '');
+    });
+  }
+  if (!document.querySelector('#meemx-quick-view')) {
+    const modal = document.createElement('div');
+    modal.id = 'meemx-quick-view';
+    modal.className = 'meemx-quick-view';
+    document.body.appendChild(modal);
+  }
+  const checkout = document.querySelector('.checkout-form');
+  if (checkout && !document.querySelector('.meemx-demo-note')) {
+    const note = document.createElement('p');
+    note.className = 'meemx-demo-note';
+    note.textContent = 'نسخة تجريبية للعرض في معرض الأعمال: لا يتم إرسال الطلبات إلى متجر حقيقي ولا تتم معالجة مدفوعات فعلية.';
+    checkout.insertBefore(note, checkout.firstChild);
+  }
+  if (document.querySelector('#order-id')) {
+    try {
+      const order = JSON.parse(sessionStorage.getItem('meemx_last_order') || 'null');
+      if (order) {
+        document.querySelector('#order-id').textContent = order.id;
+        const details = document.createElement('div');
+        details.className = 'meemx-order-details';
+        details.innerHTML = '<h3>ملخص طلبك التجريبي</h3>' + order.items.map(item => `<p>${escapeMeemx(item.name)} × ${item.qty} <b>${formatPrice(item.price*item.qty)}</b></p>`).join('') + `<hr><p>الشحن: <b>${order.shipping ? formatPrice(order.shipping) : 'مجاني'}</b></p><p>الإجمالي: <b>${formatPrice(order.total)}</b></p>`;
+        document.querySelector('.success-box')?.appendChild(details);
+      }
+    } catch (_) {}
+  }
+});
