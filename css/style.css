@@ -1256,3 +1256,42 @@ button {
   color: var(--text-secondary);
   margin-bottom: 1.5rem;
 }
+
+
+/* ========== M E E M X   P O R T F O L I O   U P G R A D E ========== */
+.meemx-shop-toolbar{max-width:1280px;margin:0 auto 1.4rem;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:16px}
+.meemx-shop-toolbar strong,.meemx-shop-toolbar small{display:block}
+.meemx-shop-toolbar strong{font-size:1.05rem}
+.meemx-shop-toolbar small{color:var(--text-muted);margin-top:.2rem}
+.meemx-shop-toolbar label{display:flex;align-items:center;gap:.65rem;color:var(--text-secondary);font-size:.9rem}
+.meemx-shop-toolbar select{background:var(--bg-secondary);color:var(--text-primary);border:1px solid var(--border);border-radius:10px;padding:.65rem .8rem;font:inherit}
+.product-img{position:relative}
+.meemx-favorite{position:absolute;top:12px;left:12px;width:38px;height:38px;border-radius:50%;background:rgba(8,15,30,.82);border:1px solid rgba(255,255,255,.18);color:white;font-size:1.45rem;display:grid;place-items:center;z-index:2;transition:var(--transition)}
+.meemx-favorite:hover,.meemx-favorite.is-favorite{color:#fb7185;background:rgba(8,15,30,.96);transform:scale(1.08)}
+.meemx-quick-btn{position:absolute;bottom:12px;left:50%;transform:translate(-50%,12px);opacity:0;background:rgba(8,15,30,.9);border:1px solid rgba(255,255,255,.2);color:#fff;padding:.55rem 1rem;border-radius:50px;font-weight:700;white-space:nowrap;transition:var(--transition)}
+.product-card:hover .meemx-quick-btn,.meemx-quick-btn:focus{opacity:1;transform:translate(-50%,0)}
+.meemx-empty-state{grid-column:1/-1;text-align:center;padding:3.5rem 1rem;color:var(--text-muted);background:var(--bg-card);border:1px dashed var(--border);border-radius:18px}
+.meemx-empty-state span{font-size:3rem;display:block;margin-bottom:.6rem}
+.meemx-empty-state p{font-size:1.1rem;font-weight:700;color:var(--text-primary)}
+.meemx-empty-state small{display:block;margin-top:.35rem}
+.meemx-quick-view{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;padding:1.2rem}
+.meemx-quick-view.open{display:flex}
+.meemx-modal-backdrop{position:absolute;inset:0;background:rgba(1,6,18,.78);backdrop-filter:blur(8px)}
+.meemx-modal-card{position:relative;z-index:1;width:min(760px,100%);display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;padding:1.5rem;background:var(--bg-secondary);border:1px solid var(--border);border-radius:24px;box-shadow:0 30px 100px rgba(0,0,0,.5);animation:meemxPop .22s ease}
+.meemx-modal-close{position:absolute;top:10px;left:10px;width:38px;height:38px;border-radius:50%;background:var(--bg-card);color:var(--text-primary);font-size:1.5rem;z-index:2}
+.meemx-modal-image{min-height:280px;border-radius:16px;overflow:hidden;background:var(--bg-card);display:grid;place-items:center}
+.meemx-modal-image img{width:100%;height:100%;min-height:280px;object-fit:cover}
+.meemx-modal-image span{font-size:5rem}
+.meemx-modal-content{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:1rem .4rem}
+.meemx-modal-content h2{font-size:1.55rem;margin:.45rem 0}
+.meemx-modal-content p{color:var(--text-secondary);line-height:1.9;margin:1rem 0}
+.meemx-modal-price{font-size:1.45rem;color:var(--cta);margin-bottom:1.2rem}
+.meemx-demo-note{padding:.9rem 1rem;margin-bottom:1.3rem;border:1px solid rgba(59,130,246,.35);border-radius:12px;background:rgba(59,130,246,.1);color:var(--text-secondary);font-size:.88rem;line-height:1.7}
+.meemx-order-details{margin-top:1.8rem;padding:1.2rem;text-align:right;background:var(--bg-secondary);border:1px solid var(--border);border-radius:16px}
+.meemx-order-details h3{margin-bottom:.8rem}
+.meemx-order-details p{display:flex;justify-content:space-between;gap:1rem;margin:.55rem 0}
+.meemx-order-details b{color:var(--cta);white-space:nowrap}
+.meemx-order-details hr{border:0;border-top:1px solid var(--border);margin:.8rem 0}
+body.meemx-modal-open{overflow:hidden}
+@keyframes meemxPop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:650px){.meemx-shop-toolbar{align-items:flex-start;flex-direction:column}.meemx-shop-toolbar label{width:100%;justify-content:space-between}.meemx-shop-toolbar select{flex:1;max-width:65%}.meemx-modal-card{grid-template-columns:1fr;max-height:90vh;overflow:auto;gap:.8rem}.meemx-modal-image,.meemx-modal-image img{min-height:190px;height:190px}.meemx-modal-content{padding:.5rem}.meemx-quick-btn{opacity:1;transform:translate(-50%,0)}}
