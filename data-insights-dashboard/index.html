@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="DataPulse لوحة تحليل بيانات تفاعلية لمتابعة المبيعات والأداء واتخاذ قرارات أفضل.">
+  <title>DataPulse | لوحة تحليل البيانات</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">D</span><span>Data<span class="accent">Pulse</span><small>INSIGHTS STUDIO</small></span></a>
+      <div class="workspace"><span class="workspace-icon">◈</span><span><b>مساحة العمل</b><small>متجر إلكتروني تجريبي</small></span><span class="chevron">⌄</span></div>
+      <p class="nav-label">القائمة الرئيسية</p>
+      <nav>
+        <a class="nav-link active" href="#"><span>▦</span> نظرة عامة</a>
+        <a class="nav-link" href="#performance"><span>⌁</span> تحليل الأداء</a>
+        <a class="nav-link" href="#products"><span>◫</span> المنتجات</a>
+        <a class="nav-link" href="#regions"><span>◎</span> المناطق</a>
+      </nav>
+      <div class="sidebar-bottom"><div class="help-card"><span>✦</span><b>رؤى تساعدك تنمو</b><p>تابع مؤشراتك واكتشف فرص التحسين من مكان واحد.</p></div><div class="profile"><div class="avatar">A</div><span><b>مدير التحليلات</b><small>حساب تجريبي</small></span><span class="dots">•••</span></div></div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><div><span class="eyebrow">الاثنين، 21 نوفمبر 2026</span><h1>نظرة عامة <span class="wave">✦</span></h1><p>أهلاً بك! إليك ملخص أداء نشاطك التجاري.</p></div><div class="top-actions"><span class="live-pill"><i></i> بيانات تجريبية مباشرة</span><button class="icon-btn" aria-label="الإشعارات">♧<em></em></button><button class="export-btn" id="exportBtn">⇩ تصدير التقرير</button></div></header>
+      <section class="toolbar"><div><span class="filter-label">الفترة الزمنية</span><div class="period-switch" role="group" aria-label="الفترة"><button class="period active" data-period="7">7 أيام</button><button class="period" data-period="30">30 يوم</button><button class="period" data-period="90">90 يوم</button></div></div><div class="updated">آخر تحديث: <b id="updatedAt">الآن</b></div></section>
+      <section class="kpi-grid" id="kpis">
+        <article class="kpi-card"><div class="kpi-top"><span>إجمالي المبيعات</span><span class="kpi-icon purple">↗</span></div><strong id="salesValue">١٢٨٬٤٥٠ ج.م</strong><div class="kpi-foot"><span class="positive">↑ ١٢.٨٪</span><span>مقارنة بالفترة السابقة</span></div><div class="sparkline purple-line">▁▂▃▂▄▃▅▆▅▇</div></article>
+        <article class="kpi-card"><div class="kpi-top"><span>عدد الطلبات</span><span class="kpi-icon blue">▤</span></div><strong id="ordersValue">١٬٢٨٤</strong><div class="kpi-foot"><span class="positive">↑ ٨.٢٪</span><span>مقارنة بالفترة السابقة</span></div><div class="sparkline blue-line">▂▃▂▄▃▅▄▆▇</div></article>
+        <article class="kpi-card"><div class="kpi-top"><span>متوسط قيمة الطلب</span><span class="kpi-icon orange">◈</span></div><strong id="averageValue">١٠٠٫٠ ج.م</strong><div class="kpi-foot"><span class="positive">↑ ٤.٦٪</span><span>مقارنة بالفترة السابقة</span></div><div class="sparkline orange-line">▁▃▂▃▄▃▅▆▇</div></article>
+        <article class="kpi-card"><div class="kpi-top"><span>معدل التحويل</span><span class="kpi-icon green">◎</span></div><strong id="conversionValue">٣٫٨٪</strong><div class="kpi-foot"><span class="positive">↑ ٠.٥٪</span><span>مقارنة بالفترة السابقة</span></div><div class="sparkline green-line">▂▂▃▄▃▅▄▆▇</div></article>
+      </section>
+      <section class="content-grid" id="performance">
+        <article class="panel chart-panel"><div class="panel-heading"><div><h2>أداء المبيعات</h2><p>نظرة على الإيرادات خلال الفترة المحددة</p></div><span class="legend"><i></i> المبيعات</span></div><div class="chart-summary"><strong id="chartTotal">١٢٨٬٤٥٠ <small>ج.م</small></strong><span class="positive">↑ ١٢.٨٪</span></div><div class="chart-wrap"><div class="y-labels"><span>١٥٠ ألف</span><span>١٠٠ ألف</span><span>٥٠ ألف</span><span>٠</span></div><svg id="salesChart" viewBox="0 0 720 230" role="img" aria-label="رسم بياني للمبيعات"><defs><linearGradient id="areaFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#7667f5" stop-opacity=".24"/><stop offset="100%" stop-color="#7667f5" stop-opacity="0"/></linearGradient></defs><g class="grid-lines"><path d="M0 20H720 M0 82H720 M0 144H720 M0 206H720"/></g><path id="chartArea" class="chart-area" d="M0 180 L80 155 L160 166 L240 112 L320 130 L400 82 L480 102 L560 55 L640 68 L720 20 L720 206 L0 206Z"/><path id="chartLine" class="chart-line" d="M0 180 L80 155 L160 166 L240 112 L320 130 L400 82 L480 102 L560 55 L640 68 L720 20"/><g id="chartPoints"></g></svg></div><div class="x-labels" id="chartLabels"><span>الأسبوع 1</span><span>الأسبوع 2</span><span>الأسبوع 3</span><span>الأسبوع 4</span></div></article>
+        <article class="panel source-panel"><div class="panel-heading"><div><h2>مصادر الزيارات</h2><p>من أين يأتي زوارك؟</p></div><button class="more-btn">•••</button></div><div class="donut-wrap"><div class="donut"><div><strong>٢٤٫٨ ألف</strong><small>إجمالي الزيارات</small></div></div></div><div class="source-list"><div><i class="dot purple-dot"></i><span>البحث المباشر</span><b>٤٢٪</b></div><div><i class="dot blue-dot"></i><span>وسائل التواصل</span><b>٢٨٪</b></div><div><i class="dot orange-dot"></i><span>الإعلانات</span><b>١٨٪</b></div><div><i class="dot gray-dot"></i><span>مصادر أخرى</span><b>١٢٪</b></div></div></article>
+      </section>
+      <section class="bottom-grid">
+        <article class="panel table-panel" id="products"><div class="panel-heading"><div><h2>أفضل المنتجات</h2><p>المنتجات الأعلى تحقيقاً للمبيعات</p></div><button class="text-btn" id="showAll">عرض الكل ←</button></div><div class="table-scroll"><table><thead><tr><th>المنتج</th><th>عدد المبيعات</th><th>الإيرادات</th><th>الأداء</th></tr></thead><tbody id="productRows"><tr><td><span class="product-thumb purple-bg">◉</span> سماعة لاسلكية</td><td>٣٨٤</td><td>٣٨٬٤٠٠ ج.م</td><td><span class="status up">↑ ١٨٪</span></td></tr><tr><td><span class="product-thumb blue-bg">⌚</span> ساعة ذكية</td><td>٢٩٦</td><td>٢٩٬٦٠٠ ج.م</td><td><span class="status up">↑ ١٢٪</span></td></tr><tr><td><span class="product-thumb orange-bg">▰</span> شاحن متنقل</td><td>٢١٨</td><td>٢١٬٨٠٠ ج.م</td><td><span class="status down">↓ ٣٪</span></td></tr></tbody></table></div></article>
+        <article class="panel regions-panel" id="regions"><div class="panel-heading"><div><h2>أداء المناطق</h2><p>توزيع المبيعات حسب المنطقة</p></div></div><div class="region-row"><div><span>القاهرة</span><b>٤٥٪</b></div><div class="bar-track"><i style="width:45%"></i></div></div><div class="region-row"><div><span>الجيزة</span><b>٢٨٪</b></div><div class="bar-track"><i style="width:28%"></i></div></div><div class="region-row"><div><span>الإسكندرية</span><b>١٧٪</b></div><div class="bar-track"><i style="width:17%"></i></div></div><div class="region-row"><div><span>مناطق أخرى</span><b>١٠٪</b></div><div class="bar-track"><i style="width:10%"></i></div></div></article>
+      </section>
+      <footer>DataPulse © 2026 <span>واجهة تحليلية تجريبية — الأرقام المعروضة بيانات افتراضية لأغراض العرض.</span></footer>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
